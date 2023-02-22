@@ -274,7 +274,7 @@ export const soliPendiente = async (req, res)=>{
         JOIN Tbl_Conductores ON Tbl_Vehiculo.idVehiculo = Tbl_Conductores.idConductor
         WHERE  IngresoCON = 0 AND habilitadoCON = 0 AND estadoCON = 0 AND disponibilidadCON = 0 AND motivoRechazoCON IS NULL and motivoInhabilitadoCON IS NULL`);
 
-        if (rows && rows.length) {
+        if (rows) {
             res.json(rows);
         } else {
             res.status(200).json("No se encontraron datos");
@@ -294,7 +294,7 @@ export const soliPendienteUnica = async (req, res)=>{
         JOIN Tbl_Conductores ON Tbl_Vehiculo.idVehiculo = Tbl_Conductores.idConductor
         WHERE  IngresoCON = 0 AND habilitadoCON = 0 AND estadoCON = 0 AND disponibilidadCON = 0 AND motivoRechazoCON IS NULL AND idConductor=?`, [req.params.id]);
 
-        if (rows && rows.length) {
+        if (rows) {
             res.json(rows[0]);
         } else {
             res.status(200).json("No se encontraron datos");
@@ -355,7 +355,7 @@ export const soliRechazada = async (req, res)=>{
         JOIN Tbl_Conductores ON Tbl_Vehiculo.idVehiculo = Tbl_Conductores.idConductor
         WHERE  IngresoCON = 0 AND habilitadoCON = 0 AND estadoCON = 0 AND disponibilidadCON = 0 AND motivoRechazoCON IS NOT NULL`);
 
-        if (rows && rows.length) {
+        if (rows) {
             res.json(rows);
         } else {
             res.status(200).json("No se encontraron solicitudes rechazadas");
@@ -375,7 +375,7 @@ export const soliRechazadaUnica =  async (req, res)=>{
         JOIN Tbl_Conductores ON Tbl_Vehiculo.idVehiculo = Tbl_Conductores.idConductor
         WHERE  IngresoCON = 0 AND habilitadoCON = 0 AND estadoCON = 0 AND disponibilidadCON = 0 AND motivoRechazoCON IS NOT NULL AND idConductor=?`, [req.params.id]);
 
-        if (rows && rows.length) {
+        if (rows) {
             res.json(rows[0]);
         } else {
             res.status(200).json("No se encontraron solicitudes rechazadas");

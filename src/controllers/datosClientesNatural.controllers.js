@@ -53,7 +53,7 @@ export const datosClientesNaturalHB = async (req, res) => {
   try {
     const [ rows ] = await pool.query(`SELECT idPerNatural,nombrePNA,apellidoPNA, nroTelefonoPNA,correoElectronicoPNA, DireccionPNA, calificacionPNA FROM Tbl_PersonaNatural WHERE habilitadoPNA=1 AND motivoInhabilitadoPNA IS NULL`);
 
-    if (rows && rows.length) {
+    if (rows) {
       res.json(rows);
     } else {
       res.status(200).json("No se encontraron clientes naturales habilitados");
@@ -68,7 +68,7 @@ export const datosClientesNaturalUnicoHB = async (req, res) => {
   try {
     const [ rows ] = await pool.query(`SELECT idPerNatural,nombrePNA,apellidoPNA, nroTelefonoPNA,correoElectronicoPNA, DireccionPNA, calificacionPNA FROM Tbl_PersonaNatural WHERE habilitadoPNA=1 AND idPerNatural = ?`, [req.params.id])
     
-    if (rows && rows.length) {
+    if (rows) {
       res.json(rows[0]);
     } else {
       res.status(200).json("No se encontro un cliente natural habilitado");
@@ -105,7 +105,7 @@ export const datosClientesNaturalIN = async (req, res) => {
   try {
     const [ rows ] = await pool.query(`SELECT idPerNatural,nombrePNA,apellidoPNA, nroTelefonoPNA,correoElectronicoPNA, DireccionPNA, calificacionPNA, motivoInhabilitadoPNA FROM Tbl_PersonaNatural WHERE habilitadoPNA=0 AND motivoInhabilitadoPNA IS NOT NULL`);
 
-    if (rows && rows.length) {
+    if (rows) {
       res.json(rows);
     } else {
       res.status(200).json("No se encontraron clientes naturales inhabilitados");
@@ -120,7 +120,7 @@ export const datosClientesNaturaUnicolIN = async (req, res) => {
   try {
     const [ rows ] = await pool.query(`SELECT idPerNatural,nombrePNA,apellidoPNA, nroTelefonoPNA,correoElectronicoPNA, DireccionPNA, calificacionPNA, motivoInhabilitadoPNA FROM Tbl_PersonaNatural WHERE habilitadoPNA=0 AND motivoInhabilitadoPNA IS NOT NULL AND idPerNatural = ?`, [req.params.id]);
     
-    if (rows && rows.length) {
+    if (rows) {
       res.json(rows[0]);
     } else {
       res.status(200).json("No se encontro un cliente naturales inhabilitado");

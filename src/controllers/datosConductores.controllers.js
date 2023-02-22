@@ -8,7 +8,7 @@ export const conductorHabilitado = async (req, res)=>{
         JOIN Tbl_Conductores ON Tbl_Vehiculo.idVehiculo = Tbl_Conductores.idConductor
         WHERE  IngresoCON = 1 AND habilitadoCON = 1 AND estadoCON = 0 AND disponibilidadCON = 0 AND motivoInhabilitadoCON IS NULL`);
 
-        if (rows && rows.length) {
+        if (rows) {
             res.json(rows);
         } else {
             res.status(200).json("No se encontraron conductores habilitados");
@@ -26,7 +26,7 @@ export const conductorHabilitadoUnico = async (req, res)=>{
         JOIN Tbl_Conductores ON Tbl_Vehiculo.idVehiculo = Tbl_Conductores.idConductor
         WHERE  IngresoCON = 1 AND habilitadoCON = 1 AND estadoCON = 0 AND disponibilidadCON = 0 AND motivoInhabilitadoCON IS NULL AND idConductor=?;`, [req.params.id]);
 
-        if (rows && rows.length) {
+        if (rows) {
             res.json(rows[0]);
         } else {
             res.status(200).json("No se encontro el conductor habilitado");
@@ -67,7 +67,7 @@ export const conductorInhabilitado = async (req, res)=>{
         JOIN Tbl_Conductores ON Tbl_Vehiculo.idVehiculo = Tbl_Conductores.idConductor
         WHERE  IngresoCON = 1 AND habilitadoCON = 0 AND estadoCON = 0 AND disponibilidadCON = 0 AND motivoInhabilitadoCON IS NOT NULL`);
 
-        if (rows && rows.length) {
+        if (rows) {
             res.json(rows);
         } else {
             res.status(200).json("No se encontraron conductores inhabilitados");
@@ -85,7 +85,7 @@ export const conductorInhabilitadoUnico = async (req, res)=>{
         JOIN Tbl_Conductores ON Tbl_Vehiculo.idVehiculo = Tbl_Conductores.idConductor
         WHERE  IngresoCON = 1 AND habilitadoCON = 0 AND estadoCON = 0 AND disponibilidadCON = 0 AND motivoInhabilitadoCON IS NOT NULL AND idConductor = ?`, [req.params.id]);
 
-        if (rows && rows.length) {
+        if (rows) {
             res.json(rows[0]);
         } else {
             res.status(200).json("No se encontro el conductor inhabilitado");

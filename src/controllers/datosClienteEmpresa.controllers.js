@@ -52,7 +52,7 @@ export const datosClientesEmpresaHB = async (req, res) => {
     try {
         const [ rows ] = await pool.query(`SELECT idPerJuridica, nombreEmpresa, nroTelefonoPJU, correoElectronicoPJU, DireccionEmpresa, calificacionPJU, NITempresa FROM Tbl_PersonaJuridica WHERE habilitadoPJU=1 AND motivoInhabilitadoPJU IS NULL`);
 
-        if (rows && rows.length) {
+        if (rows) {
             res.json(rows);
         } else {
             res.status(200).json("No se encontraron clientes empresa habilitados");
@@ -67,7 +67,7 @@ export const datosClientesEmpresaUnicoHB = async (req, res) => {
     try {
         const [ rows ] = await pool.query(`SELECT idPerJuridica, nombreEmpresa, nroTelefonoPJU, correoElectronicoPJU, DireccionEmpresa, calificacionPJU, NITempresa FROM Tbl_PersonaJuridica WHERE habilitadoPJU=1 AND motivoInhabilitadoPJU IS NULL AND idPerJuridica=?`, [req.params.id])
         
-        if (rows && rows.length) {
+        if (rows) {
             res.json(rows[0]);
         } else {
             res.status(200).json("No se encontro un cliente empresa habilitado");
@@ -104,7 +104,7 @@ export const datosClientesEmpresaIN = async (req, res) => {
     try {
         const [ rows ] = await pool.query(`SELECT idPerJuridica, nombreEmpresa, nroTelefonoPJU, correoElectronicoPJU, DireccionEmpresa, calificacionPJU, NITempresa, motivoInhabilitadoPJU FROM Tbl_PersonaJuridica WHERE habilitadoPJU=0 AND motivoInhabilitadoPJU IS NOT NULL`);
 
-        if (rows && rows.length) {
+        if (rows) {
             res.json(rows);
         } else {
             res.status(200).json("No se encontraron clientes empresa inhabilitados");
@@ -119,7 +119,7 @@ export const datosClientesEmpresaUnicoIN = async (req, res) => {
     try {
         const [ rows ] = await pool.query(`SELECT idPerJuridica, nombreEmpresa, nroTelefonoPJU, correoElectronicoPJU, DireccionEmpresa, calificacionPJU, NITempresa, motivoInhabilitadoPJU FROM Tbl_PersonaJuridica WHERE habilitadoPJU=0 AND motivoInhabilitadoPJU IS NOT NULL AND idPerJuridica=?`, [req.params.id]);
 
-        if (rows && rows.length) {
+        if (rows) {
             res.json(rows[0]);
         } else {
             res.status(200).json("No se encontro un cliente empresa inhabilitado");
