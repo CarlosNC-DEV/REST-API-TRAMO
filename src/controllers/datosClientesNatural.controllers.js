@@ -36,9 +36,9 @@ export const crearClienteNT = async(req, res)=>{
     if(clienteNatural){
         const [ rows ] = await pool.query(`INSERT INTO Tbl_PersonaNatural SET ?`, clienteNatural[0]);
         if (rows.affectedRows == 1) {
-            res.status(200).json({ message: "Registro cliente natural exitoso" });
+            res.status(200).json("Registro cliente natural exitoso");
         } else {
-            res.status(505).json({ message: "No se pudo registrar el cliente natural" });
+            res.status(505).json("No se pudo registrar el cliente natural");
         }
     }else {
          res.json("Por favor ingrese todos los datos");
@@ -56,7 +56,7 @@ export const datosClientesNaturalHB = async (req, res) => {
     if (rows && rows.length) {
       res.json(rows);
     } else {
-      res.status(200).json({ message: "No se encontraron clientes naturales habilitados" });
+      res.status(200).json("No se encontraron clientes naturales habilitados");
     }
 
   } catch (error) {
@@ -71,7 +71,7 @@ export const datosClientesNaturalUnicoHB = async (req, res) => {
     if (rows && rows.length) {
       res.json(rows[0]);
     } else {
-      res.status(200).json({ message: "No se encontro un cliente natural habilitado" });
+      res.status(200).json("No se encontro un cliente natural habilitado");
     }
 
   } catch (error) {
@@ -91,7 +91,7 @@ export const inhabilitarClientePNA = async(req, res)=>{
       if(rows.affectedRows == 1){
         res.json(rows);
       }else{
-        res.status(200).json({ message: "No se pudo inhabilitar el cliente natural" });
+        res.status(200).json("No se pudo inhabilitar el cliente natural");
       }
 
     } catch (error) {
@@ -108,7 +108,7 @@ export const datosClientesNaturalIN = async (req, res) => {
     if (rows && rows.length) {
       res.json(rows);
     } else {
-      res.status(200).json({ message: "No se encontraron clientes naturales inhabilitados" });
+      res.status(200).json("No se encontraron clientes naturales inhabilitados");
     }
       
   } catch (error) {
@@ -123,7 +123,7 @@ export const datosClientesNaturaUnicolIN = async (req, res) => {
     if (rows && rows.length) {
       res.json(rows[0]);
     } else {
-      res.status(200).json({ message: "No se encontro un cliente naturales inhabilitado" });
+      res.status(200).json("No se encontro un cliente naturales inhabilitado");
     }
 
   } catch (error) {
@@ -143,7 +143,7 @@ export const habilitarClientePNA = async(req, res)=>{
       if(rows.affectedRows == 1){
         res.json(rows);
       }else{
-          res.status(200).json({ message: "No se pudo habilitar el cliente naturales" });
+          res.status(200).json("No se pudo habilitar el cliente naturales");
       }
 
     } catch (error) {

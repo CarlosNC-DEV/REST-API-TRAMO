@@ -9,7 +9,7 @@ export const conductoresDis = async(req, res)=>{
         if (rows && rows.length) {
             res.json(rows);
         } else {
-            res.status(200).json({ message: "No se encontraron datos" });
+            res.status(200).json("No se encontraron datos");
         }
         
     } catch (error) {
@@ -24,7 +24,7 @@ export const conductoresEnServicio = async(req, res)=>{
         if (rows && rows.length) {
             res.json(rows);
         } else {
-            res.status(200).json({ message: "No se encontraron datos" });
+            res.status(200).json("No se encontraron datos");
         }
         
     } catch (error) {

@@ -12,9 +12,9 @@ export const createAdmin = async (req, res) => {
     if (correo && usuario && password) {
       const [rows] = await pool.query(`INSERT INTO Tbl_Administradores SET ?`, { correoAdmin: correo, Usuario: usuario, Contrasena: passHaas});
       if (rows.affectedRows == 1) {
-        res.status(200).json({ message: "Registro exitoso" });
+        res.status(200).json("Registro exitoso");
       } else {
-        res.status(505).json({ message: "No se pudo registrar este usuario" });
+        res.status(505).json("No se pudo registrar este usuario");
       }
     } else {
       res.json("Por favor ingrese todos los datos");
@@ -35,14 +35,14 @@ export const autenticacionAdmin = async (req, res) => {
     if (correoAdmin && adminContra) {
       const [rows] = await pool.query(`SELECT * FROM Tbl_Administradores WHERE correoAdmin=?`, [correoAdmin]);
       if ( rows.length == 0 || !(await bcryptjs.compare(adminContra, rows[0].Contrasena))) {
-        res.status(200).json({ message: "CORREO y/o CONTRASEÑA incorrecta" });
+        res.status(200).json("CORREO y/o CONTRASEÑA incorrecta");
       } else {
         req.session.loggedin = true;
         req.session.name = rows[0].correoAdmin;
-        res.status(200).json({ message: "Bienvenido administrador TRAMO" });
+        res.status(200).json("Bienvenido administrador TRAMO");
       }
     } else {
-      res.status(200).json({ message: "¡Por favor, llene todos los campos requeridos!" });
+      res.status(200).json("¡Por favor, llene todos los campos requeridos!");
     }
   } catch (error) {
     return res.status(500).json({ message: error.message });

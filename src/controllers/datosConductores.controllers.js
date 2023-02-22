@@ -11,7 +11,7 @@ export const conductorHabilitado = async (req, res)=>{
         if (rows && rows.length) {
             res.json(rows);
         } else {
-            res.status(200).json({ message: "No se encontraron conductores habilitados" });
+            res.status(200).json("No se encontraron conductores habilitados");
         }
 
     } catch (error) {
@@ -29,7 +29,7 @@ export const conductorHabilitadoUnico = async (req, res)=>{
         if (rows && rows.length) {
             res.json(rows[0]);
         } else {
-            res.status(200).json({ message: "No se encontro el conductor habilitado" });
+            res.status(200).json("No se encontro el conductor habilitado");
         }
 
     } catch (error) {
@@ -50,7 +50,7 @@ export const inhabilitarConductor = async(req, res)=>{
         if(rows.affectedRows == 1){
             res.json(rows);
         }else{
-            res.status(200).json({ message: "No se pudo inhabilitar el conductor" });
+            res.status(200).json("No se pudo inhabilitar el conductor");
         }
         
       } catch (error) {
@@ -70,7 +70,7 @@ export const conductorInhabilitado = async (req, res)=>{
         if (rows && rows.length) {
             res.json(rows);
         } else {
-            res.status(200).json({ message: "No se encontraron conductores inhabilitados" });
+            res.status(200).json("No se encontraron conductores inhabilitados");
         }
 
     } catch (error) {
@@ -88,7 +88,7 @@ export const conductorInhabilitadoUnico = async (req, res)=>{
         if (rows && rows.length) {
             res.json(rows[0]);
         } else {
-            res.status(200).json({ message: "No se encontro el conductor inhabilitado" });
+            res.status(200).json("No se encontro el conductor inhabilitado");
         }
         
     } catch (error) {
@@ -109,7 +109,7 @@ export const habilitarConductor = async (req, res)=>{
         if(rows.affectedRows == 1){
             res.json(rows);
         }else{
-            res.status(200).json({ message: "No se pudo habilitar el conductor" });
+            res.status(200).json("No se pudo habilitar el conductor");
         }
 
       } catch (error) {

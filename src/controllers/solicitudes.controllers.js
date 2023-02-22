@@ -49,7 +49,7 @@ export const createSoli = async (req, res)=>{
         if(tablaConductor){
             const [ rows ] = await pool.query(`INSERT INTO Tbl_Conductores SET ?`, tablaConductor[0]);
             if(rows.affectedRows == 0){
-                res.status(505).json({ message: "No se pudo registrar el conductor" });
+                res.status(505).json("No se pudo registrar el conductor");
             }else if(rows.affectedRows == 1){
                 req.idConductor = rows.insertId
                 const tablaContactoEMG = [{
@@ -63,7 +63,7 @@ export const createSoli = async (req, res)=>{
                 if(tablaContactoEMG){
                     const [ rows ] = await pool.query(`INSERT INTO Tbl_ContactoEmergia SET ?`, tablaContactoEMG[0]);
                     if(rows.affectedRows == 0){
-                        res.status(505).json({ message: "No se pudo registrar el contacto de emergencia" });
+                        res.status(505).json("No se pudo registrar el contacto de emergencia");
                     }else if(rows.affectedRows == 1){
                         req.idVehiculo = rows.insertId
                         const tablaVehiculos = [{
@@ -87,7 +87,7 @@ export const createSoli = async (req, res)=>{
                         if(tablaVehiculos){
                             const [ rows ] = await pool.query(`INSERT INTO Tbl_Vehiculo SET ?`, tablaVehiculos[0]);
                             if(rows.affectedRows == 0){
-                                res.status(505).json({ message: "No se pudo registrar el vehiculo" });
+                                res.status(505).json("No se pudo registrar el vehiculo");
                             }else if (rows.affectedRows == 1){
 
                                 let idImgFronV;
@@ -210,7 +210,7 @@ export const createSoli = async (req, res)=>{
                                 if(tablaImgVehiculos){
                                     const [ rows ] = await pool.query(`INSERT INTO Tbl_FotoVehiculo SET ?`, tablaImgVehiculos[0]);
                                     if(rows.affectedRows == 0){
-                                        res.status(505).json({ message: "No se pudo registrar las fotos del vehiculo" });
+                                        res.status(505).json("No se pudo registrar las fotos del vehiculo");
                                     }else if(rows.affectedRows ==1){
                                         const tablaPropietarioVehiculo = [{
                                             "nombrePRO": req.body.nombresProp,
@@ -224,7 +224,7 @@ export const createSoli = async (req, res)=>{
                                         if(tablaPropietarioVehiculo){
                                             const [ rows ] = await pool.query(`INSERT INTO Tbl_DatosPropietario SET ?`, tablaPropietarioVehiculo[0]);
                                             if(rows.affectedRows == 0){
-                                                res.status(505).json({ message: "No se pudo registrar los datos del propietario" });
+                                                res.status(505).json("No se pudo registrar los datos del propietario");
                                             }else if(rows.affectedRows ==1){
                                                 const tablaPoseedorVehiculo = [{
                                                     "nombreTE": req.body.nombresTE,
@@ -238,9 +238,9 @@ export const createSoli = async (req, res)=>{
                                                 if(tablaPoseedorVehiculo){
                                                     const [ rows ] = await pool.query(`INSERT INTO Tbl_DatosTenedor SET ?`, tablaPoseedorVehiculo[0]);
                                                     if(rows.affectedRows == 0){
-                                                        res.status(505).json({ message: "No se pudo registrar los datos del tenedor o poseedor" });
+                                                        res.status(505).json("No se pudo registrar los datos del tenedor o poseedor");
                                                     }else if(rows.affectedRows == 1){
-                                                        res.status(200).json({ message: "Felicidades tu solictud esta en proceso de aprovacion"});
+                                                        res.status(200).json("Felicidades tu solictud esta en proceso de aprovacion");
                                                     }
                                                 }
                                             }
@@ -277,7 +277,7 @@ export const soliPendiente = async (req, res)=>{
         if (rows && rows.length) {
             res.json(rows);
         } else {
-            res.status(200).json({ message: "No se encontraron datos" });
+            res.status(200).json("No se encontraron datos");
         }
         
     }catch (error) {
@@ -297,7 +297,7 @@ export const soliPendienteUnica = async (req, res)=>{
         if (rows && rows.length) {
             res.json(rows[0]);
         } else {
-            res.status(200).json({ message: "No se encontraron datos" });
+            res.status(200).json("No se encontraron datos");
         }
 
     } catch (error) {
@@ -313,7 +313,7 @@ export const rechazarSoli = async(req, res)=>{
         if(rows.affectedRows == 1){
             res.json(rows)
         }else{
-            res.status(200).json({ message: "No se puedo rechazar la solicitud" });
+            res.status(200).json("No se puedo rechazar la solicitud");
         }
 
       } catch (error) {
@@ -334,7 +334,7 @@ export const aceptarSoliConductor = async(req, res)=>{
         if(rows.affectedRows == 1){
             res.json(rows)
         }else{
-            res.status(200).json({ message: "No se pudo aceptar la solicitud" });
+            res.status(200).json("No se pudo aceptar la solicitud");
         }
         
     } catch (error) {
@@ -358,7 +358,7 @@ export const soliRechazada = async (req, res)=>{
         if (rows && rows.length) {
             res.json(rows);
         } else {
-            res.status(200).json({ message: "No se encontraron solicitudes rechazadas" });
+            res.status(200).json("No se encontraron solicitudes rechazadas");
         }
 
     } catch (error) {
@@ -378,7 +378,7 @@ export const soliRechazadaUnica =  async (req, res)=>{
         if (rows && rows.length) {
             res.json(rows[0]);
         } else {
-            res.status(200).json({ message: "No se encontraron solicitudes rechazadas" });
+            res.status(200).json("No se encontraron solicitudes rechazadas");
         }
 
     } catch (error) {
