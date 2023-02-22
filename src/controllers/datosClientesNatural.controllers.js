@@ -51,7 +51,7 @@ export const crearClienteNT = async(req, res)=>{
 
 export const datosClientesNaturalHB = async (req, res) => {
   try {
-    const [ rows ] = await pool.query(`SELECT idPerNatural,nombrePNA,apellidoPNA, nroTelefonoPNA,correoElectronicoPNA, DireccionPNA, calificacionPNA FROM Tbl_PersonaNatural WHERE habilitadoPNA=1 AND motivoInhabilitadoPNA IS NULL`);
+    const [ rows ] = await pool.query(`SELECT idPerNatural, idfotoPerfilPNA, fotoPerfilPNA, nombrePNA,apellidoPNA, nroTelefonoPNA,correoElectronicoPNA, DireccionPNA, calificacionPNA FROM Tbl_PersonaNatural WHERE habilitadoPNA=1 AND motivoInhabilitadoPNA IS NULL`);
 
     if (rows) {
       res.json(rows);
@@ -66,7 +66,7 @@ export const datosClientesNaturalHB = async (req, res) => {
 
 export const datosClientesNaturalUnicoHB = async (req, res) => {
   try {
-    const [ rows ] = await pool.query(`SELECT idPerNatural,nombrePNA,apellidoPNA, nroTelefonoPNA,correoElectronicoPNA, DireccionPNA, calificacionPNA FROM Tbl_PersonaNatural WHERE habilitadoPNA=1 AND idPerNatural = ?`, [req.params.id])
+    const [ rows ] = await pool.query(`SELECT idPerNatural, idfotoPerfilPNA, fotoPerfilPNA, nombrePNA,apellidoPNA, nroTelefonoPNA,correoElectronicoPNA, DireccionPNA, calificacionPNA FROM Tbl_PersonaNatural WHERE habilitadoPNA=1 AND idPerNatural = ?`, [req.params.id])
     
     if (rows) {
       res.json(rows[0]);
@@ -103,7 +103,7 @@ export const inhabilitarClientePNA = async(req, res)=>{
 
 export const datosClientesNaturalIN = async (req, res) => {
   try {
-    const [ rows ] = await pool.query(`SELECT idPerNatural,nombrePNA,apellidoPNA, nroTelefonoPNA,correoElectronicoPNA, DireccionPNA, calificacionPNA, motivoInhabilitadoPNA FROM Tbl_PersonaNatural WHERE habilitadoPNA=0 AND motivoInhabilitadoPNA IS NOT NULL`);
+    const [ rows ] = await pool.query(`SELECT idPerNatural, idfotoPerfilPNA, fotoPerfilPNA, nombrePNA,apellidoPNA, nroTelefonoPNA,correoElectronicoPNA, DireccionPNA, calificacionPNA, motivoInhabilitadoPNA FROM Tbl_PersonaNatural WHERE habilitadoPNA=0 AND motivoInhabilitadoPNA IS NOT NULL`);
 
     if (rows) {
       res.json(rows);
@@ -118,7 +118,7 @@ export const datosClientesNaturalIN = async (req, res) => {
 
 export const datosClientesNaturaUnicolIN = async (req, res) => {
   try {
-    const [ rows ] = await pool.query(`SELECT idPerNatural,nombrePNA,apellidoPNA, nroTelefonoPNA,correoElectronicoPNA, DireccionPNA, calificacionPNA, motivoInhabilitadoPNA FROM Tbl_PersonaNatural WHERE habilitadoPNA=0 AND motivoInhabilitadoPNA IS NOT NULL AND idPerNatural = ?`, [req.params.id]);
+    const [ rows ] = await pool.query(`SELECT idPerNatural, idfotoPerfilPNA, fotoPerfilPNA, nombrePNA,apellidoPNA, nroTelefonoPNA,correoElectronicoPNA, DireccionPNA, calificacionPNA, motivoInhabilitadoPNA FROM Tbl_PersonaNatural WHERE habilitadoPNA=0 AND motivoInhabilitadoPNA IS NOT NULL AND idPerNatural = ?`, [req.params.id]);
     
     if (rows) {
       res.json(rows[0]);

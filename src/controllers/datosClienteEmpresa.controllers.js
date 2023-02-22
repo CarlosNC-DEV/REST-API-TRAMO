@@ -50,7 +50,7 @@ export const crearClientePJU = async(req, res)=>{
 
 export const datosClientesEmpresaHB = async (req, res) => {
     try {
-        const [ rows ] = await pool.query(`SELECT idPerJuridica, nombreEmpresa, nroTelefonoPJU, correoElectronicoPJU, DireccionEmpresa, calificacionPJU, NITempresa FROM Tbl_PersonaJuridica WHERE habilitadoPJU=1 AND motivoInhabilitadoPJU IS NULL`);
+        const [ rows ] = await pool.query(`SELECT idPerJuridica, idfotoPerfilPJU, fotoPerfilPNA, nombreEmpresa, nroTelefonoPJU, correoElectronicoPJU, DireccionEmpresa, calificacionPJU, NITempresa FROM Tbl_PersonaJuridica WHERE habilitadoPJU=1 AND motivoInhabilitadoPJU IS NULL`);
 
         if (rows) {
             res.json(rows);
@@ -65,7 +65,7 @@ export const datosClientesEmpresaHB = async (req, res) => {
   
 export const datosClientesEmpresaUnicoHB = async (req, res) => {
     try {
-        const [ rows ] = await pool.query(`SELECT idPerJuridica, nombreEmpresa, nroTelefonoPJU, correoElectronicoPJU, DireccionEmpresa, calificacionPJU, NITempresa FROM Tbl_PersonaJuridica WHERE habilitadoPJU=1 AND motivoInhabilitadoPJU IS NULL AND idPerJuridica=?`, [req.params.id])
+        const [ rows ] = await pool.query(`SELECT idPerJuridica, idfotoPerfilPJU, fotoPerfilPNA, nombreEmpresa, nroTelefonoPJU, correoElectronicoPJU, DireccionEmpresa, calificacionPJU, NITempresa FROM Tbl_PersonaJuridica WHERE habilitadoPJU=1 AND motivoInhabilitadoPJU IS NULL AND idPerJuridica=?`, [req.params.id])
         
         if (rows) {
             res.json(rows[0]);
@@ -102,7 +102,7 @@ export const inhabilitarClientePJU = async(req, res)=>{
   
 export const datosClientesEmpresaIN = async (req, res) => {
     try {
-        const [ rows ] = await pool.query(`SELECT idPerJuridica, nombreEmpresa, nroTelefonoPJU, correoElectronicoPJU, DireccionEmpresa, calificacionPJU, NITempresa, motivoInhabilitadoPJU FROM Tbl_PersonaJuridica WHERE habilitadoPJU=0 AND motivoInhabilitadoPJU IS NOT NULL`);
+        const [ rows ] = await pool.query(`SELECT idPerJuridica, idfotoPerfilPJU, fotoPerfilPNA, nombreEmpresa, nroTelefonoPJU, correoElectronicoPJU, DireccionEmpresa, calificacionPJU, NITempresa, motivoInhabilitadoPJU FROM Tbl_PersonaJuridica WHERE habilitadoPJU=0 AND motivoInhabilitadoPJU IS NOT NULL`);
 
         if (rows) {
             res.json(rows);
@@ -117,7 +117,7 @@ export const datosClientesEmpresaIN = async (req, res) => {
   
 export const datosClientesEmpresaUnicoIN = async (req, res) => {
     try {
-        const [ rows ] = await pool.query(`SELECT idPerJuridica, nombreEmpresa, nroTelefonoPJU, correoElectronicoPJU, DireccionEmpresa, calificacionPJU, NITempresa, motivoInhabilitadoPJU FROM Tbl_PersonaJuridica WHERE habilitadoPJU=0 AND motivoInhabilitadoPJU IS NOT NULL AND idPerJuridica=?`, [req.params.id]);
+        const [ rows ] = await pool.query(`SELECT idPerJuridica, idfotoPerfilPJU, fotoPerfilPNA, nombreEmpresa, nroTelefonoPJU, correoElectronicoPJU, DireccionEmpresa, calificacionPJU, NITempresa, motivoInhabilitadoPJU FROM Tbl_PersonaJuridica WHERE habilitadoPJU=0 AND motivoInhabilitadoPJU IS NOT NULL AND idPerJuridica=?`, [req.params.id]);
 
         if (rows) {
             res.json(rows[0]);
