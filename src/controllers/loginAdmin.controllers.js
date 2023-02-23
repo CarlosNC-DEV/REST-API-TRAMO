@@ -35,7 +35,7 @@ export const autenticacionAdmin = async (req, res) => {
     if (correoAdmin && adminContra) {
       const [rows] = await pool.query(`SELECT * FROM Tbl_Administradores WHERE correoAdmin=?`, [correoAdmin]);
       if ( rows.length == 0 || !(await bcryptjs.compare(adminContra, rows[0].Contrasena))) {
-        res.json("CORREO y/o CONTRASEÑA incorrecta", {
+        res.json({
           alert: true,
           alertTitle: "Error",
           alertMessage: "USUARIO y/o CONTRASEÑA incorrecta",
@@ -47,7 +47,7 @@ export const autenticacionAdmin = async (req, res) => {
       } else {
         req.session.loggedin = true;
         req.session.name = rows[0].correoAdmin;
-        res.json("Bienvenido administrador TRAMO", {
+        res.json({
           alert: true,
           alertTitle: "Bienvenido administrador TRAMO",
           alertMessage: " ¡LOGIN CORRECTO! ",
