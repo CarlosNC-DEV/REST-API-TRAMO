@@ -58,7 +58,15 @@ export const autenticacionAdmin = async (req, res) => {
       });
       }
     } else {
-      res.json("¡Por favor, llene todos los campos requeridos!");
+      res.json({
+        alert: true,
+        alertTitle: "Advertencia",
+        alertMessage: " ¡Por favor, llene los campos requeridos! ",
+        alertIcon: "warning",
+        showConfirmButton: true,
+        timer: false,
+        ruta: 'login'
+    });
     }
   } catch (error) {
     return res.status(500).json({ message: error.message });
