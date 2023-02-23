@@ -65,7 +65,7 @@ export const autenticacionAdmin = async (req, res) => {
         alertIcon: "warning",
         showConfirmButton: true,
         timer: false,
-        ruta: 'login'
+        ruta: '/login'
     });
     }
   } catch (error) {
