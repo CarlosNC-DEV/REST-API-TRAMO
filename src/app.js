@@ -28,13 +28,16 @@ app.use(
   })
 );
 
-app.use(
-  session({
-    secret: "secret",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
+app.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: true, // configurar en true si utiliza HTTPS
+    httpOnly: true, // la cookie no es accesible por el navegador
+    maxAge: 3600000 // tiempo de expiración en milisegundos
+  }
+}));
 
 app.use(loginAdmin);
 app.use("/admin", conductores);
