@@ -3,6 +3,7 @@ import morgan from "morgan";
 import cors from "cors";
 import session from "express-session";
 import fileUpload from "express-fileupload";
+import cookieParser from 'cookie-parser';
 
 import loginAdmin from "./routes/loginAdmin.routes.js";
 import conductores from "./routes/conductores.routes.js";
