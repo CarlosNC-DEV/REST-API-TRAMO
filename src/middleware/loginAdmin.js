@@ -6,9 +6,7 @@ export const verifyToken = (req, res, next) => {
 
   // Verificar si el token existe
   if (!token) {
-    return res.status(401).json({
-      message: 'No se ha proporcionado un token de autenticación'
-    });
+    return res.render('404');
   }
 
   // Verificar si el token es válido
@@ -18,8 +16,6 @@ export const verifyToken = (req, res, next) => {
     req.userName = decoded.name;
     next();
   } catch (error) {
-    return res.status(401).json({
-      message: 'El token de autenticación proporcionado es inválido'
-    });
+    return res.render('404');
   }
 };
