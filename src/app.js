@@ -4,7 +4,6 @@ import cors from "cors";
 import session from "express-session";
 import fileUpload from "express-fileupload";
 import cookieParser from "cookie-parser";
-import FileStore  from 'session-file-store';
 
 import loginAdmin from "./routes/loginAdmin.routes.js";
 import conductores from "./routes/conductores.routes.js";
@@ -41,10 +40,7 @@ app.use(session({
   saveUninitialized: true,
   cookie: {
     secure: true, 
-  },
-  store: new FileStore({
-    path: '/',
-  }),
+  }
 }));
 
 app.use(loginAdmin);
