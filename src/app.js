@@ -1,8 +1,6 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
-import cookieParser from 'cookie-parser';
-import session from "express-session";
 import fileUpload from "express-fileupload";
 
 import loginAdmin from "./routes/loginAdmin.routes.js";
@@ -28,23 +26,8 @@ app.use(
   })
 );
 
-app.use(cookieParser());
-
-// Configurar Express-session
-app.use(session({
-  secret: 'clave',
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    sameSite: 'none',
-    secure: false
-  }
-}));
-
 // Configurar los headers de CORS
-app.use(cors({
-  credentials: true,
-}));
+app.use(cors());
 
 app.use(loginAdmin);
 app.use("/admin", conductores);

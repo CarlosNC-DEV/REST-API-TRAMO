@@ -1,5 +1,8 @@
 import pool from "../database.js";
 import bcryptjs from "bcryptjs";
+import jwt from 'jsonwebtoken';
+
+const secretKey = "miClaveSecreta";
 
 // CREAR UN NUEVO ADMINISTRADOR TRAMO
 export const createAdmin = async (req, res) => {
@@ -34,6 +37,7 @@ export const autenticacionAdmin = async (req, res) => {
 
     if (correoAdmin && adminContra) {
       const [rows] = await pool.query(`SELECT * FROM Tbl_Administradores WHERE correoAdmin=?`, [correoAdmin]);
+      console.log(rows)
       if ( rows.length == 0 || !(await bcryptjs.compare(adminContra, rows[0].Contrasena))) {
         res.json({
           alert: true,
@@ -45,9 +49,7 @@ export const autenticacionAdmin = async (req, res) => {
           ruta: '/login'    
       });
       } else {
-        res.cookie('token', 'myAuthToken', { maxAge: 3600000, httpOnly: true });
-        req.session.isLoggedIn = true;
-        req.session.name = rows[0].Usuario;
+        const token = jwt.sign({ id: rows[0].idAdministradores }, 'secreto');
         res.json({
           alert: true,
           alertTitle: "Bienvenido administrador TRAMO",
@@ -55,7 +57,8 @@ export const autenticacionAdmin = async (req, res) => {
           alertIcon: "success",
           showConfirmButton: false,
           timer: 1500,
-          ruta: '/dashboard'
+          ruta: '/dashboard',
+          token
       });
       }
     } else {
@@ -68,24 +71,6 @@ export const autenticacionAdmin = async (req, res) => {
         timer: false,
         ruta: '/login'
     });
-    }
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
-};
-
-// // CONTROLAR QUE LA SESION ESTE ABIERTA EN TODAS LAS VISTAS DE ADMINISTRADOR TRAMO
-
-export const controlerAdmin = (req, res) => {
-  try {
-    if (req.cookies.token === 'myAuthToken') {
-      res.json({
-        login: true
-      });
-    } else {
-      res.json({
-        login: false,
-      });
     }
   } catch (error) {
     return res.status(500).json({ message: error.message });
