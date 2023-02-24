@@ -30,16 +30,19 @@ app.use(
   })
 );
 
-app.use(session({
-  secret: 'secret',
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    secure: true, // configurar en true si utiliza HTTPS
-    httpOnly: true, // la cookie no es accesible por el navegador
-    maxAge: 3600000 // tiempo de expiración en milisegundos
-  }
-}));
+app.use(
+  session({
+    secret: "my-secret-key",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      secure: true, // solo para HTTPS
+      sameSite: "none", // solo para HTTPS
+      maxAge: 1000 * 60 * 60 * 24, // duración de la sesión en milisegundos (1 día)
+    },
+  })
+);
 
 app.use(loginAdmin);
 app.use("/admin", conductores);
