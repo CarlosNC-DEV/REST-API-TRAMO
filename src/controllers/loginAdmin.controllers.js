@@ -46,7 +46,7 @@ export const autenticacionAdmin = async (req, res) => {
       });
       } else {
         req.session.loggedin = true;
-        req.session.name = rows[0].correoAdmin;
+        req.session.name = rows[0].Usuario;
         res.json({
           alert: true,
           alertTitle: "Bienvenido administrador TRAMO",
@@ -73,7 +73,7 @@ export const autenticacionAdmin = async (req, res) => {
   }
 };
 
-// CONTROLAR QUE LA SESION ESTE ABIERTA EN TODAS LAS VISTAS DE ADMINBISTRADOR TRAMO
+// CONTROLAR QUE LA SESION ESTE ABIERTA EN TODAS LAS VISTAS DE ADMINISTRADOR TRAMO
 
 export const controlerAdmin = (req, res) => {
   try {
