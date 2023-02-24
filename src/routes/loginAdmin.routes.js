@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { autenticacionAdmin, cerraSesion, createAdmin} from "../controllers/loginAdmin.controllers.js";
+import { autenticacionAdmin, controlerAdmin, cerraSesion, createAdmin} from "../controllers/loginAdmin.controllers.js";
 
 const router = Router();
 
@@ -10,7 +10,7 @@ router.post("/register", createAdmin);
 router.post("/auth", autenticacionAdmin);
 
 // // cotroladores de sesion.
-// router.get("/adminPrinci", controlerAdmin);
+router.get("/adminPrinci", controlerAdmin);
 
 // Destruye la sesión.
 router.get("/logout", cerraSesion);
