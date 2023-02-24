@@ -3,14 +3,14 @@ import morgan from "morgan";
 import cors from "cors";
 import session from "express-session";
 import fileUpload from "express-fileupload";
-import cookieParser from 'cookie-parser';
+import cookieParser from "cookie-parser";
 
 import loginAdmin from "./routes/loginAdmin.routes.js";
 import conductores from "./routes/conductores.routes.js";
 import solicitudes from "./routes/solicitudes.routes.js";
-import datosConductores from './routes/datosConductores.routes.js';
-import datosClienteNatural from './routes/datosClientesNatural.routes.js';
-import datosClienteEmpresa from './routes/datosClienteEmpresa.routes.js';
+import datosConductores from "./routes/datosConductores.routes.js";
+import datosClienteNatural from "./routes/datosClientesNatural.routes.js";
+import datosClienteEmpresa from "./routes/datosClienteEmpresa.routes.js";
 
 const app = express();
 
@@ -29,19 +29,13 @@ app.use(
   })
 );
 
-app.use(cookieParser());
+app.use(cookieParser("misecret"));
 
 app.use(
   session({
-    secret: "my-secret-key",
+    secret: "misecret",
     resave: true,
-    saveUninitialized: false,
-    cookie: {
-      httpOnly: true,
-      secure: false, // solo para HTTPS
-      sameSite: "none", // solo para HTTPS
-      maxAge: 1000 * 60 * 60 * 24, // duración de la sesión en milisegundos (1 día)
-    },
+    saveUninitialized: true,
   })
 );
 
