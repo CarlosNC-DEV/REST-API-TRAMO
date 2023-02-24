@@ -15,6 +15,7 @@ const app = express();
 
 app.use(morgan("dev"));
 app.use(cors());
+app.use(cookieParser());
 
 // Para poder capturar los datos del formulario (sin urlencoded nos devuelve "undefined")
 app.use(express.urlencoded({ extended: false }));
