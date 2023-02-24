@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import cookieParser from 'cookie-parser';
 import session from "express-session";
 import fileUpload from "express-fileupload";
 
@@ -27,6 +28,8 @@ app.use(
     tempFileDir: "./upload",
   })
 );
+
+app.use(cookieParser());
 
 app.use(session({
   secret: 'mySecret',

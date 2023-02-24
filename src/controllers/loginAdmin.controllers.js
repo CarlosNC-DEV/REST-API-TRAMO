@@ -78,7 +78,10 @@ export const autenticacionAdmin = async (req, res) => {
 export const controlerAdmin = (req, res) => {
   try {
     if (req.session.loggedin) {
-      res.json("Esto es una ruta protegida");
+      res.json({
+        login: req.session.loggedin,
+        nombreAdmin: req.session.name,
+      });
     } else {
       res.json({
         login: false,
