@@ -16,7 +16,6 @@ const app = express();
 
 app.use(morgan("dev"));
 app.use(cors());
-app.use(cookieParser());
 
 // Para poder capturar los datos del formulario (sin urlencoded nos devuelve "undefined")
 app.use(express.urlencoded({ extended: false }));
@@ -30,10 +29,12 @@ app.use(
   })
 );
 
+app.use(cookieParser());
+
 app.use(
   session({
     secret: "my-secret-key",
-    resave: false,
+    resave: true,
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
