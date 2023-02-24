@@ -32,9 +32,10 @@ app.use(
 app.use(cookieParser());
 
 app.use(session({
-  secret: 'mySecret',
+  secret: 'secreto',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  cookie: { secure: false }
 }));
 
 app.use(loginAdmin);

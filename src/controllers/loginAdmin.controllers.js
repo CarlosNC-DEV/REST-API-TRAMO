@@ -45,7 +45,7 @@ export const autenticacionAdmin = async (req, res) => {
           ruta: '/login'    
       });
       } else {
-        req.session.loggedin = true;
+        req.session.isLoggedIn = true;
         req.session.name = rows[0].Usuario;
         res.json({
           alert: true,
@@ -73,24 +73,24 @@ export const autenticacionAdmin = async (req, res) => {
   }
 };
 
-// CONTROLAR QUE LA SESION ESTE ABIERTA EN TODAS LAS VISTAS DE ADMINISTRADOR TRAMO
+// // CONTROLAR QUE LA SESION ESTE ABIERTA EN TODAS LAS VISTAS DE ADMINISTRADOR TRAMO
 
-export const controlerAdmin = (req, res) => {
-  try {
-    if (req.session.loggedin) {
-      res.json({
-        login: req.session.loggedin,
-        nombreAdmin: req.session.name,
-      });
-    } else {
-      res.json({
-        login: false,
-      });
-    }
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
-};
+// export const controlerAdmin = (req, res) => {
+//   try {
+//     if (req.session.loggedin) {
+//       res.json({
+//         login: req.session.loggedin,
+//         nombreAdmin: req.session.name,
+//       });
+//     } else {
+//       res.json({
+//         login: false,
+//       });
+//     }
+//   } catch (error) {
+//     return res.status(500).json({ message: error.message });
+//   }
+// };
 
 // CERRAR SESIÓN DEL MODULO ADMINISTRADOR
 export const cerraSesion = (req, res) => {

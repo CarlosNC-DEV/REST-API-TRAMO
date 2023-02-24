@@ -7,7 +7,9 @@ import {
     datosClientesNaturalIN,
     datosClientesNaturaUnicolIN,
     habilitarClientePNA,
-  } from "../controllers/datosClientesNatural.controllers.js";
+} from "../controllers/datosClientesNatural.controllers.js";
+
+import { authMiddleware } from '../middleware/loginAdmin.js';
 
 const router = Router();
 
@@ -17,33 +19,33 @@ router.post("/crearClienteNatural", crearClienteNT)
 
 // ver clientes naturales habilitados
  
-router.get("/datosClientesNaturalHB", datosClientesNaturalHB);
+router.get("/datosClientesNaturalHB", authMiddleware, datosClientesNaturalHB);
 
 
 // ver unico cliente natural habilitados
  
-router.get("/datosClientesNaturalHB/:id", datosClientesNaturalUnicoHB);
+router.get("/datosClientesNaturalHB/:id", authMiddleware, datosClientesNaturalUnicoHB);
 
 
 // Inhabilitar cliente natural
 
-router.put("/datosClientesNaturalHB/:id", inhabilitarClientePNA);
+router.put("/datosClientesNaturalHB/:id", authMiddleware, inhabilitarClientePNA);
 
 // ===============================================================
 
 
 // ver clientes naturales inhabilitado
 
-router.get("/datosClientesNaturalIN", datosClientesNaturalIN);
+router.get("/datosClientesNaturalIN", authMiddleware, datosClientesNaturalIN);
 
 
 // ver unico cliente natural inhabilitado
 
-router.get("/datosClientesNaturalIN/:id", datosClientesNaturaUnicolIN);
+router.get("/datosClientesNaturalIN/:id", authMiddleware, datosClientesNaturaUnicolIN);
 
 
 // habilitar cliente natural
 
-router.put("/datosClientesNaturalIN/:id", habilitarClientePNA);
+router.put("/datosClientesNaturalIN/:id", authMiddleware, habilitarClientePNA);
 
 export default router;

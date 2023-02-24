@@ -7,7 +7,9 @@ import {
     datosClientesEmpresaIN,
     datosClientesEmpresaUnicoIN,
     habilitarClientePJU,
-  } from "../controllers/datosClienteEmpresa.controllers.js";
+} from "../controllers/datosClienteEmpresa.controllers.js";
+
+import { authMiddleware } from '../middleware/loginAdmin.js';
 
 const router = Router();
 
@@ -17,28 +19,28 @@ router.post("/crearClienteEmpresa", crearClientePJU);
 
 // ver clientes empresa habilitados
 
-router.get("/datosClientesEmpresaHB", datosClientesEmpresaHB);
+router.get("/datosClientesEmpresaHB", authMiddleware, datosClientesEmpresaHB);
 
 // Ver unico cliente empresa habilitado
 
-router.get("/datosClientesEmpresaHB/:id", datosClientesEmpresaUnicoHB);
+router.get("/datosClientesEmpresaHB/:id", authMiddleware, datosClientesEmpresaUnicoHB);
 
 // Inhabilitar cliente tipo empresa
 
-router.put("/datosClientesEmpresaHB/:id", inhabilitarClientePJU);
+router.put("/datosClientesEmpresaHB/:id", authMiddleware, inhabilitarClientePJU);
 
 // ===============================================================
 
 // ver clientes empresa inhabilitado
 
-router.get("/datosClientesEmpresaIN", datosClientesEmpresaIN);
+router.get("/datosClientesEmpresaIN", authMiddleware, datosClientesEmpresaIN);
 
 // Ver unico cliente empresa habilitado
 
-router.get("/datosClientesEmpresaIN/:id", datosClientesEmpresaUnicoIN);
+router.get("/datosClientesEmpresaIN/:id", authMiddleware, datosClientesEmpresaUnicoIN);
 
 // Inhabilitar cliente tipo empresa
 
-router.put("/datosClientesEmpresaIN/:id", habilitarClientePJU);
+router.put("/datosClientesEmpresaIN/:id", authMiddleware, habilitarClientePJU);
 
 export default router;
