@@ -3,7 +3,6 @@ import morgan from "morgan";
 import cors from "cors";
 import session from "express-session";
 import fileUpload from "express-fileupload";
-import cookieParser from "cookie-parser";
 
 import loginAdmin from "./routes/loginAdmin.routes.js";
 import conductores from "./routes/conductores.routes.js";
@@ -29,19 +28,10 @@ app.use(
   })
 );
 
-app.use(cookieParser('misecret', {
-  cookieName: 'admin',
-}));
-
 app.use(session({
-  name: 'admin',
-  secret: 'misecret',
-  resave: true,
-  saveUninitialized: true,
-  cookie: {
-    secure: false, 
-    httpOnly: false,
-  }
+  secret: 'mySecret',
+  resave: false,
+  saveUninitialized: false
 }));
 
 app.use(loginAdmin);
