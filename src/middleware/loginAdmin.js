@@ -6,7 +6,7 @@ export const verifyToken = (req, res, next) => {
 
   // Verificar si el token existe
   if (!token) {
-    return res.status(401).json([ { login: false} ]);
+    return res.status(401).json({ "login": false });
   }
 
   // Verificar si el token es válido
@@ -16,8 +16,6 @@ export const verifyToken = (req, res, next) => {
     req.userName = decoded.name;
     next();
   } catch (error) {
-    return res.status(401).json({
-      "login": false
-    });
+    return res.status(401).json({ "login": false });
   }
 };
