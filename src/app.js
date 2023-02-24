@@ -37,7 +37,7 @@ app.use(
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      secure: true, // solo para HTTPS
+      secure: false, // solo para HTTPS
       sameSite: "none", // solo para HTTPS
       maxAge: 1000 * 60 * 60 * 24, // duración de la sesión en milisegundos (1 día)
     },
