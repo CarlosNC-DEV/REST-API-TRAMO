@@ -1,9 +1,10 @@
-import express, { json } from "express";
+import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import session from "express-session";
 import fileUpload from "express-fileupload";
 import cookieParser from "cookie-parser";
+import FileStore  from 'session-file-store';
 
 import loginAdmin from "./routes/loginAdmin.routes.js";
 import conductores from "./routes/conductores.routes.js";
@@ -29,15 +30,22 @@ app.use(
   })
 );
 
-app.use(cookieParser("misecret"));
+app.use(cookieParser('misecret', {
+  cookieName: 'admin',
+}));
 
-app.use(
-  session({
-    secret: "misecret",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
+app.use(session({
+  name: 'admin',
+  secret: 'misecret',
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+    secure: true, 
+  },
+  store: new FileStore({
+    path: '/',
+  }),
+}));
 
 app.use(loginAdmin);
 app.use("/admin", conductores);
