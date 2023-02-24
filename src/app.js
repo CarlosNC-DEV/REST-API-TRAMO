@@ -15,7 +15,6 @@ import datosClienteEmpresa from "./routes/datosClienteEmpresa.routes.js";
 const app = express();
 
 app.use(morgan("dev"));
-app.use(cors());
 
 // Para poder capturar los datos del formulario (sin urlencoded nos devuelve "undefined")
 app.use(express.urlencoded({ extended: false }));
@@ -31,11 +30,20 @@ app.use(
 
 app.use(cookieParser());
 
+// Configurar Express-session
 app.use(session({
-  secret: 'secreto',
+  secret: 'clave',
   resave: false,
-  saveUninitialized: false,
-  cookie: { secure: false }
+  saveUninitialized: true,
+  cookie: {
+    sameSite: 'none',
+    secure: false
+  }
+}));
+
+// Configurar los headers de CORS
+app.use(cors({
+  credentials: true,
 }));
 
 app.use(loginAdmin);
