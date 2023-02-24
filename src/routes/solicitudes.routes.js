@@ -9,26 +9,28 @@ import {
   soliRechazadaUnica,
 } from "../controllers/solicitudes.controllers.js";
 
+import { verifyToken } from '../middleware/loginAdmin.js';
+
 const router = Router();
 
 // CREAR UNA SOLICITUD
 
-router.post("/solicitudCon", createSoli);
+router.post("/solicitudCon", verifyToken, createSoli);
 
 // SOLICITUDES PENDIENTES
 
-router.get("/solicitudesPendiente", soliPendiente);
+router.get("/solicitudesPendiente", verifyToken, soliPendiente);
 
-router.get("/solicitudesPendiente/:id", soliPendienteUnica);
+router.get("/solicitudesPendiente/:id", verifyToken, soliPendienteUnica);
 
-router.put("/rechazarSolicitud/:id", rechazarSoli);
+router.put("/rechazarSolicitud/:id", verifyToken, rechazarSoli);
 
-router.put("/aceptarSoli/:id", aceptarSoliConductor);
+router.put("/aceptarSoli/:id", verifyToken, aceptarSoliConductor);
 
 // SOLICITUDES RECHAZADAS
 
-router.get("/solicitudesRechazadas", soliRechazada);
+router.get("/solicitudesRechazadas", verifyToken, soliRechazada);
 
-router.get("/solicitudesRechazadas/:id", soliRechazadaUnica);
+router.get("/solicitudesRechazadas/:id", verifyToken, soliRechazadaUnica);
 
 export default router;

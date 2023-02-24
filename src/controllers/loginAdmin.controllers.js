@@ -37,7 +37,6 @@ export const autenticacionAdmin = async (req, res) => {
 
     if (correoAdmin && adminContra) {
       const [rows] = await pool.query(`SELECT * FROM Tbl_Administradores WHERE correoAdmin=?`, [correoAdmin]);
-      console.log(rows)
       if ( rows.length == 0 || !(await bcryptjs.compare(adminContra, rows[0].Contrasena))) {
         res.json({
           alert: true,
@@ -49,7 +48,7 @@ export const autenticacionAdmin = async (req, res) => {
           ruta: '/login'    
       });
       } else {
-        const token = jwt.sign({ id: rows[0].idAdministradores }, 'secreto');
+        const token = jwt.sign({ id: rows[0].idAdministradores, name: rows[0].Usuario }, 'secreto');
         res.json({
           alert: true,
           alertTitle: "Bienvenido administrador TRAMO",
@@ -81,11 +80,7 @@ export const autenticacionAdmin = async (req, res) => {
 export const cerraSesion = (req, res) => {
   try {
     res.clearCookie('token');
-    req.session.destroy(() => {
-      res.json({
-        login: false,
-      });
-    });
+    res.json("sesion cerrada correctamente")
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

@@ -15,7 +15,7 @@ const router = Router();
 
 // Crear un cliente empresa
 
-router.post("/crearClienteEmpresa", crearClientePJU);
+router.post("/crearClienteEmpresa", verifyToken, crearClientePJU);
 
 // ver clientes empresa habilitados
 
