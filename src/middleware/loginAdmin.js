@@ -6,7 +6,9 @@ export const verifyToken = (req, res, next) => {
 
   // Verificar si el token existe
   if (!token) {
-    return res.redirect('https://www.20thcenturystudios.com/404');
+    return res.json({
+      login: false
+    });
   }
 
   // Verificar si el token es válido
@@ -16,6 +18,8 @@ export const verifyToken = (req, res, next) => {
     req.userName = decoded.name;
     next();
   } catch (error) {
-    return res.redirect('https://www.20thcenturystudios.com/404');
+    return res.json({
+      login: false
+    });
   }
 };
