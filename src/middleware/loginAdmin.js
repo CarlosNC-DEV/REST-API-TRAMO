@@ -6,7 +6,7 @@ export const verifyToken = (req, res, next) => {
 
   // Verificar si el token existe
   if (!token) {
-    return res.redirect('http://localhost:5173/pagina404');
+    return res.redirect('localhost:5173/pagina404');
   }
 
   // Verificar si el token es válido
@@ -16,6 +16,6 @@ export const verifyToken = (req, res, next) => {
     req.userName = decoded.name;
     next();
   } catch (error) {
-    return res.redirect('http://localhost:5173/pagina404');
+    return res.redirect('localhost:5173/pagina404');
   }
 };
