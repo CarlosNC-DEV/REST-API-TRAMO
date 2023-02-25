@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { JWT_SECRET_KEY } from '../config.js';
 
 export const verifyToken = (req, res, next) => {
   // Obtener el token enviado por el cliente
@@ -13,7 +14,7 @@ export const verifyToken = (req, res, next) => {
 
   // Verificar si el token es válido
   try {
-    const decoded = jwt.verify(token, 'secreto');
+    const decoded = jwt.verify(token, JWT_SECRET_KEY);
     req.userId = decoded.id;
     req.userName = decoded.name;
     next();

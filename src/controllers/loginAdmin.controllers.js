@@ -2,7 +2,7 @@ import pool from "../database.js";
 import bcryptjs from "bcryptjs";
 import jwt from 'jsonwebtoken';
 
-const secretKey = "miClaveSecreta";
+import { JWT_SECRET_KEY } from '../config.js';
 
 // CREAR UN NUEVO ADMINISTRADOR TRAMO
 export const createAdmin = async (req, res) => {
@@ -48,7 +48,7 @@ export const autenticacionAdmin = async (req, res) => {
           ruta: '/login'    
       });
       } else {
-        const token = jwt.sign({ id: rows[0].idAdministradores, name: rows[0].Usuario }, 'secreto');
+        const token = jwt.sign({ id: rows[0].idAdministradores, name: rows[0].Usuario }, JWT_SECRET_KEY);
         res.json({
           alert: true,
           alertTitle: "Bienvenido administrador TRAMO",
