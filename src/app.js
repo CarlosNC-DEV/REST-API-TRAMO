@@ -15,7 +15,7 @@ const app = express();
 app.use(morgan("dev"));
 
 // Para poder capturar los datos del formulario (sin urlencoded nos devuelve "undefined")
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());  // Además le decimos a express que vamos a usar json
 
 // Cuando reciba un fie lo guadare en la carpeta upload

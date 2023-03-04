@@ -15,7 +15,7 @@ const router = Router();
 
 // CREAR UNA SOLICITUD
 
-router.post("/solicitudCon", verifyToken, createSoli);
+router.post("/solicitudCon", createSoli);
 
 // SOLICITUDES PENDIENTES
 
