@@ -2,11 +2,10 @@
 import pool from '../database.js';
 //Invocamos a bcrypt
 import bcryptjs from 'bcryptjs';
-import { uploadImagesConductores, uploadImagesVehiculos } from '../libs/cloudinary.js';
-import fs from 'fs-extra';
-
+//Invocamos a cloudinary
+import cloudinary from 'cloudinary';
 // crear solicitud
-export const createSoli = async (req, res)=>{
+export const createSoli =  async (req, res)=>{
     try {
 
         let idImgPerfilCon;
@@ -16,8 +15,7 @@ export const createSoli = async (req, res)=>{
         let passHaas = await bcryptjs.hash(password, 8); // Hago hass de la cobtraseña
 
         if(req.files.perfilImgCon){
-            const perfilCon = await uploadImagesConductores(req.files.perfilImgCon.tempFilePath);
-            await fs.remove(req.files.perfilImgCon.tempFilePath);
+            const perfilCon = await cloudinary.uploader.upload(req.files.perfilImgCon[0].path);
 
             // URL Y ID IMAGEN PERFIL CONDUCTOR
             idImgPerfilCon = perfilCon.public_id;
@@ -95,8 +93,7 @@ export const createSoli = async (req, res)=>{
 
                                 // Valido las img recividas y almaceno su ID y su URL
                                 if(req.files.frente){
-                                    const fotoFrontal = await uploadImagesVehiculos(req.files.frente.tempFilePath);
-                                    await fs.remove(req.files.frente.tempFilePath);
+                                    const fotoFrontal = await cloudinary.uploader.upload(req.files.frente[0].path);
 
                                     // URL Y ID IMAGEN FOTO FRONTAL VEHICULO
                                     idImgFronV = fotoFrontal.public_id;
@@ -108,9 +105,7 @@ export const createSoli = async (req, res)=>{
                                 let urlImgVolcoV;
 
                                 if(req.files.volco){
-                                    const fotoVolco = await uploadImagesVehiculos(req.files.volco.tempFilePath);
-
-                                    await fs.remove(req.files.volco.tempFilePath);
+                                    const fotoVolco = await cloudinary.uploader.upload(req.files.volco[0].path);
 
                                     // URL Y ID IMAGEN FOTO VOLCO VEHICULO
                                     idImgVolcoV = fotoVolco.public_id;
@@ -122,8 +117,7 @@ export const createSoli = async (req, res)=>{
                                 let urlImglateralIzV;
                                 
                                 if(req.files.izquierdo){
-                                    const fotoLateralIzquierdo = await uploadImagesVehiculos(req.files.izquierdo.tempFilePath);
-                                    await fs.remove(req.files.izquierdo.tempFilePath);
+                                    const fotoLateralIzquierdo = await cloudinary.uploader.upload(req.files.izquierdo[0].path);
 
                                     // URL Y ID IMAGEN FOTO LATERAL IZQUIERDO VEHICULO
                                     idImgLateralIzV = fotoLateralIzquierdo.public_id;
@@ -135,8 +129,7 @@ export const createSoli = async (req, res)=>{
                                 let urlImglateralDeV;
                                 
                                 if(req.files.derecho){
-                                    const fotoLateralDerecho = await uploadImagesVehiculos(req.files.derecho.tempFilePath);
-                                    await fs.remove(req.files.derecho.tempFilePath);
+                                    const fotoLateralDerecho = await cloudinary.uploader.upload(req.files.derecho[0].path);
 
                                     // URL Y ID IMAGEN FOTO LATERAL IZQUIERDO VEHICULO
                                     idImgLateralDeV = fotoLateralDerecho.public_id;
@@ -148,8 +141,7 @@ export const createSoli = async (req, res)=>{
                                 let urlImgLateralIzT;
 
                                 if(req.files.izquierdotrailer){
-                                    const fotoLateralIzquierdoTrailer = await uploadImagesVehiculos(req.files.izquierdotrailer.tempFilePath);
-                                    await fs.remove(req.files.izquierdotrailer.tempFilePath);
+                                    const fotoLateralIzquierdoTrailer = await cloudinary.uploader.upload(req.files.izquierdotrailer[0].path);
 
                                     // URL Y ID IMAGEN FOTO LATERAL IZQUIERDO VEHICULO
                                     idImgLateralIzT = fotoLateralIzquierdoTrailer.public_id;
@@ -160,8 +152,7 @@ export const createSoli = async (req, res)=>{
                                 let urlImgLateralDeT;
                                 
                                 if(req.files.derechotrailer){
-                                    const fotoLateralDerechoTrailer = await uploadImagesVehiculos(req.files.derechotrailer.tempFilePath);
-                                    await fs.remove(req.files.derechotrailer.tempFilePath);
+                                    const fotoLateralDerechoTrailer = await cloudinary.uploader.upload(req.files.derechotrailer[0].path);
     
                                     // URL Y ID IMAGEN FOTO LATERAL IZQUIERDO VEHICULO
                                     idImgLateralDeT = fotoLateralDerechoTrailer.public_id;
@@ -173,8 +164,7 @@ export const createSoli = async (req, res)=>{
                                 let urlImgVolcoT;
                                 
                                 if(req.files.volcotrailer){
-                                    const fotoVolcoTrailer = await uploadImagesVehiculos(req.files.volcotrailer.tempFilePath);
-                                    await fs.remove(req.files.volcotrailer.tempFilePath);
+                                    const fotoVolcoTrailer = await cloudinary.uploader.upload(req.files.volcotrailer[0].path);
     
                                     // URL Y ID IMAGEN FOTO LATERAL IZQUIERDO VEHICULO
                                     idImgVolvoT = fotoVolcoTrailer.public_id;

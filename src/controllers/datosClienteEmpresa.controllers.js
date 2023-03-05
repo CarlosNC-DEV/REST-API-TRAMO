@@ -1,7 +1,5 @@
 import pool from "../database.js";
 import bcryptjs from 'bcryptjs';
-import { uploadImagesClienteEmpresa } from '../libs/cloudinary.js';
-import fs from 'fs-extra';
 
 export const crearClientePJU = async(req, res)=>{
   try {

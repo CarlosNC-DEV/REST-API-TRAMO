@@ -1,7 +1,5 @@
 import pool from "../database.js";
 import bcryptjs from 'bcryptjs';
-import { uploadImagesClienteNatural } from '../libs/cloudinary.js';
-import fs from 'fs-extra';
 
 export const crearClienteNT = async(req, res)=>{
   try {

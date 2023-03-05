@@ -1,4 +1,6 @@
 import { Router } from "express";
+import multer from 'multer';
+import { storageConductor } from '../libs/cloudinary.js';
 import {
   createSoli,
   soliPendiente,
@@ -8,14 +10,17 @@ import {
   soliRechazada,
   soliRechazadaUnica,
 } from "../controllers/solicitudes.controllers.js";
+const upload = multer({
+  storage: storageConductor
+});
 
 import { verifyToken } from '../middleware/loginAdmin.js';
 
 const router = Router();
 
 // CREAR UNA SOLICITUD
-
-router.post("/solicitudCon", createSoli);
+const input = upload.fields([{name: 'perfilImgCon'}, {name: 'frente'}, {name: 'volco'}, {name: 'izquierdo'}, {name: 'derecho'}, {name: 'izquierdotrailer'}, {name: 'derechotrailer'}, {name: 'volcotrailer'}]);
+router.post("/solicitudCon", input, createSoli);
 
 // SOLICITUDES PENDIENTES
 
