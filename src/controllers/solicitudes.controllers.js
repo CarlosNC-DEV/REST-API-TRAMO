@@ -247,7 +247,7 @@ export const createSoli =  async (req, res)=>{
             }
         }
     } catch (error) {
-        return res.status(500).json("Solicitud Fallida")
+        return res.status(500).json(error.message)
     }
 }
 
