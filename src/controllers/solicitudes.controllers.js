@@ -24,12 +24,14 @@ export const createSoli =  async (req, res)=>{
         const password = req.body.password; // Resivo la contraseña
         let passHaas = await bcryptjs.hash(password, 8); // Hago hass de la cobtraseña
 
-        if(req.files.perfilImgCon){
+        if(req.files){
             const perfilCon = await cloudinary.uploader.upload(req.files.perfilImgCon[0].path);
 
             // URL Y ID IMAGEN PERFIL CONDUCTOR
             idImgPerfilCon = perfilCon.public_id;
             urlImgPerfilCon = perfilCon.secure_url;
+        }else{
+            return res.status(400).json("Problema en Perfil");
         }
 
         const tablaConductor = [{
@@ -57,7 +59,7 @@ export const createSoli =  async (req, res)=>{
         if(tablaConductor){
             const [ rows ] = await pool.query(`INSERT INTO Tbl_Conductores SET ?`, tablaConductor[0]);
             if(rows.affectedRows == 0){
-                res.status(505).json("No se pudo registrar el conductor");
+                return res.status(505).json("No se pudo registrar el conductor");
             }else if(rows.affectedRows == 1){
                 req.idConductor = rows.insertId
                 const tablaContactoEMG = [{
@@ -71,7 +73,7 @@ export const createSoli =  async (req, res)=>{
                 if(tablaContactoEMG){
                     const [ rows ] = await pool.query(`INSERT INTO Tbl_ContactoEmergia SET ?`, tablaContactoEMG[0]);
                     if(rows.affectedRows == 0){
-                        res.status(505).json("No se pudo registrar el contacto de emergencia");
+                        return res.status(505).json("No se pudo registrar el contacto de emergencia");
                     }else if(rows.affectedRows == 1){
                         req.idVehiculo = rows.insertId
                         const tablaVehiculos = [{
@@ -95,90 +97,104 @@ export const createSoli =  async (req, res)=>{
                         if(tablaVehiculos){
                             const [ rows ] = await pool.query(`INSERT INTO Tbl_Vehiculo SET ?`, tablaVehiculos[0]);
                             if(rows.affectedRows == 0){
-                                res.status(505).json("No se pudo registrar el vehiculo");
+                                return res.status(505).json("No se pudo registrar el vehiculo");
                             }else if (rows.affectedRows == 1){
 
                                 let idImgFronV;
                                 let urlImgFronV;
 
                                 // Valido las img recividas y almaceno su ID y su URL
-                                if(req.files.frente){
+                                if(req.files){
                                     const fotoFrontal = await cloudinary.uploader.upload(req.files.frente[0].path);
 
                                     // URL Y ID IMAGEN FOTO FRONTAL VEHICULO
                                     idImgFronV = fotoFrontal.public_id;
                                     urlImgFronV = fotoFrontal.secure_url;
 
+                                }else{
+                                    return res.status(400).json("Problema en frente vehiculo");
                                 }
 
                                 let idImgVolcoV;
                                 let urlImgVolcoV;
 
-                                if(req.files.volco){
+                                if(req.files){
                                     const fotoVolco = await cloudinary.uploader.upload(req.files.volco[0].path);
 
                                     // URL Y ID IMAGEN FOTO VOLCO VEHICULO
                                     idImgVolcoV = fotoVolco.public_id;
                                     urlImgVolcoV = fotoVolco.secure_url;
 
+                                }else{
+                                    return res.status(400).json("Problema en volvo vehiculo");
                                 }
 
                                 let idImgLateralIzV;
                                 let urlImglateralIzV;
                                 
-                                if(req.files.izquierdo){
+                                if(req.files){
                                     const fotoLateralIzquierdo = await cloudinary.uploader.upload(req.files.izquierdo[0].path);
 
                                     // URL Y ID IMAGEN FOTO LATERAL IZQUIERDO VEHICULO
                                     idImgLateralIzV = fotoLateralIzquierdo.public_id;
                                     urlImglateralIzV = fotoLateralIzquierdo.secure_url;
 
+                                }else{
+                                    return res.status(400).json("Problema en izquierdo vehiculo");
                                 }
 
                                 let idImgLateralDeV;
                                 let urlImglateralDeV;
                                 
-                                if(req.files.derecho){
+                                if(req.files){
                                     const fotoLateralDerecho = await cloudinary.uploader.upload(req.files.derecho[0].path);
 
                                     // URL Y ID IMAGEN FOTO LATERAL IZQUIERDO VEHICULO
                                     idImgLateralDeV = fotoLateralDerecho.public_id;
                                     urlImglateralDeV = fotoLateralDerecho.secure_url;
                                 
+                                }else{
+                                    return res.status(400).json("Problema en derecho vehiculo");
                                 }
 
                                 let idImgLateralIzT;
                                 let urlImgLateralIzT;
 
-                                if(req.files.izquierdotrailer){
+                                if(req.files){
                                     const fotoLateralIzquierdoTrailer = await cloudinary.uploader.upload(req.files.izquierdotrailer[0].path);
 
                                     // URL Y ID IMAGEN FOTO LATERAL IZQUIERDO VEHICULO
                                     idImgLateralIzT = fotoLateralIzquierdoTrailer.public_id;
                                     urlImgLateralIzT = fotoLateralIzquierdoTrailer.secure_url;
+                                }else{
+                                    return res.status(400).json("Problema izquierdo trailer");
                                 }
 
                                 let idImgLateralDeT;
                                 let urlImgLateralDeT;
                                 
-                                if(req.files.derechotrailer){
+                                if(req.files){
                                     const fotoLateralDerechoTrailer = await cloudinary.uploader.upload(req.files.derechotrailer[0].path);
     
                                     // URL Y ID IMAGEN FOTO LATERAL IZQUIERDO VEHICULO
                                     idImgLateralDeT = fotoLateralDerechoTrailer.public_id;
                                     urlImgLateralDeT = fotoLateralDerechoTrailer.secure_url;
     
+                                }else{
+                                    return res.status(400).json("Problema en derecho trailer");
                                 }
 
                                 let idImgVolvoT;
                                 let urlImgVolcoT;
                                 
-                                if(req.files.volcotrailer){
+                                if(req.files){
                                     const fotoVolcoTrailer = await cloudinary.uploader.upload(req.files.volcotrailer[0].path);
     
                                     // URL Y ID IMAGEN FOTO LATERAL IZQUIERDO VEHICULO
                                     idImgVolvoT = fotoVolcoTrailer.public_id;
                                     urlImgVolcoT = fotoVolcoTrailer.secure_url;
+                                }else{
+                                    return res.status(400).json("Problema en volco trailer");
                                 }
 
                                 const tablaImgVehiculos = [{
@@ -210,7 +226,7 @@ export const createSoli =  async (req, res)=>{
                                 if(tablaImgVehiculos){
                                     const [ rows ] = await pool.query(`INSERT INTO Tbl_FotoVehiculo SET ?`, tablaImgVehiculos[0]);
                                     if(rows.affectedRows == 0){
-                                        res.status(505).json("No se pudo registrar las fotos del vehiculo");
+                                        return res.status(505).json("No se pudo registrar las fotos del vehiculo");
                                     }else if(rows.affectedRows ==1){
                                         const tablaPropietarioVehiculo = [{
                                             "nombrePRO": req.body.nombresProp,
@@ -224,7 +240,7 @@ export const createSoli =  async (req, res)=>{
                                         if(tablaPropietarioVehiculo){
                                             const [ rows ] = await pool.query(`INSERT INTO Tbl_DatosPropietario SET ?`, tablaPropietarioVehiculo[0]);
                                             if(rows.affectedRows == 0){
-                                                res.status(505).json("No se pudo registrar los datos del propietario");
+                                                return res.status(505).json("No se pudo registrar los datos del propietario");
                                             }else if(rows.affectedRows ==1){
                                                 const tablaPoseedorVehiculo = [{
                                                     "nombreTE": req.body.nombresTE,
@@ -238,7 +254,7 @@ export const createSoli =  async (req, res)=>{
                                                 if(tablaPoseedorVehiculo){
                                                     const [ rows ] = await pool.query(`INSERT INTO Tbl_DatosTenedor SET ?`, tablaPoseedorVehiculo[0]);
                                                     if(rows.affectedRows == 0){
-                                                        res.status(505).json("No se pudo registrar los datos del tenedor o poseedor");
+                                                        return res.status(505).json("No se pudo registrar los datos del tenedor o poseedor");
                                                     }else if(rows.affectedRows == 1){
                                                         res.status(200).json("Felicidades tu solictud esta en proceso de aprovacion");
                                                     }
