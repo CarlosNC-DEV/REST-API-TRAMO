@@ -22,6 +22,7 @@ const router = Router();
 const input = upload.fields([{name: 'perfilImgCon'}, {name: 'frente'}, {name: 'volco'}, {name: 'izquierdo'}, {name: 'derecho'}, {name: 'izquierdotrailer'}, {name: 'derechotrailer'}, {name: 'volcotrailer'}]);
 router.post("/solicitudCon", input, createSoli);
 
+
 // SOLICITUDES PENDIENTES
 
 router.get("/solicitudesPendiente", verifyToken, soliPendiente);
