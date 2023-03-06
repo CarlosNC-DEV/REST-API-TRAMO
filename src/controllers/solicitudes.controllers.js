@@ -31,7 +31,7 @@ export const createSoli =  async (req, res)=>{
             idImgPerfilCon = perfilCon.public_id;
             urlImgPerfilCon = perfilCon.secure_url;
         }else{
-            return res.status(400).json("Problema en Perfil");
+            return res.status(400).send("Problema en Perfil");
         }
 
         const tablaConductor = [{
@@ -59,7 +59,7 @@ export const createSoli =  async (req, res)=>{
         if(tablaConductor){
             const [ rows ] = await pool.query(`INSERT INTO Tbl_Conductores SET ?`, tablaConductor[0]);
             if(rows.affectedRows == 0){
-                return res.status(505).json("No se pudo registrar el conductor");
+                return res.status(505).send("No se pudo registrar el conductor");
             }else if(rows.affectedRows == 1){
                 req.idConductor = rows.insertId
                 const tablaContactoEMG = [{
@@ -73,7 +73,7 @@ export const createSoli =  async (req, res)=>{
                 if(tablaContactoEMG){
                     const [ rows ] = await pool.query(`INSERT INTO Tbl_ContactoEmergia SET ?`, tablaContactoEMG[0]);
                     if(rows.affectedRows == 0){
-                        return res.status(505).json("No se pudo registrar el contacto de emergencia");
+                        return res.status(505).send("No se pudo registrar el contacto de emergencia");
                     }else if(rows.affectedRows == 1){
                         req.idVehiculo = rows.insertId
                         const tablaVehiculos = [{
@@ -97,7 +97,7 @@ export const createSoli =  async (req, res)=>{
                         if(tablaVehiculos){
                             const [ rows ] = await pool.query(`INSERT INTO Tbl_Vehiculo SET ?`, tablaVehiculos[0]);
                             if(rows.affectedRows == 0){
-                                return res.status(505).json("No se pudo registrar el vehiculo");
+                                return res.status(505).send("No se pudo registrar el vehiculo");
                             }else if (rows.affectedRows == 1){
 
                                 let idImgFronV;
@@ -112,7 +112,7 @@ export const createSoli =  async (req, res)=>{
                                     urlImgFronV = fotoFrontal.secure_url;
 
                                 }else{
-                                    return res.status(400).json("Problema en frente vehiculo");
+                                    return res.status(400).send("Problema en frente vehiculo");
                                 }
 
                                 let idImgVolcoV;
@@ -126,7 +126,7 @@ export const createSoli =  async (req, res)=>{
                                     urlImgVolcoV = fotoVolco.secure_url;
 
                                 }else{
-                                    return res.status(400).json("Problema en volvo vehiculo");
+                                    return res.status(400).send("Problema en volvo vehiculo");
                                 }
 
                                 let idImgLateralIzV;
@@ -140,7 +140,7 @@ export const createSoli =  async (req, res)=>{
                                     urlImglateralIzV = fotoLateralIzquierdo.secure_url;
 
                                 }else{
-                                    return res.status(400).json("Problema en izquierdo vehiculo");
+                                    return res.status(400).send("Problema en izquierdo vehiculo");
                                 }
 
                                 let idImgLateralDeV;
@@ -154,7 +154,7 @@ export const createSoli =  async (req, res)=>{
                                     urlImglateralDeV = fotoLateralDerecho.secure_url;
                                 
                                 }else{
-                                    return res.status(400).json("Problema en derecho vehiculo");
+                                    return res.status(400).send("Problema en derecho vehiculo");
                                 }
 
                                 let idImgLateralIzT;
@@ -167,7 +167,7 @@ export const createSoli =  async (req, res)=>{
                                     idImgLateralIzT = fotoLateralIzquierdoTrailer.public_id;
                                     urlImgLateralIzT = fotoLateralIzquierdoTrailer.secure_url;
                                 }else{
-                                    return res.status(400).json("Problema izquierdo trailer");
+                                    return res.status(400).send("Problema izquierdo trailer");
                                 }
 
                                 let idImgLateralDeT;
@@ -181,7 +181,7 @@ export const createSoli =  async (req, res)=>{
                                     urlImgLateralDeT = fotoLateralDerechoTrailer.secure_url;
     
                                 }else{
-                                    return res.status(400).json("Problema en derecho trailer");
+                                    return res.status(400).send("Problema en derecho trailer");
                                 }
 
                                 let idImgVolvoT;
@@ -194,7 +194,7 @@ export const createSoli =  async (req, res)=>{
                                     idImgVolvoT = fotoVolcoTrailer.public_id;
                                     urlImgVolcoT = fotoVolcoTrailer.secure_url;
                                 }else{
-                                    return res.status(400).json("Problema en volco trailer");
+                                    return res.status(400).send("Problema en volco trailer");
                                 }
 
                                 const tablaImgVehiculos = [{
@@ -226,7 +226,7 @@ export const createSoli =  async (req, res)=>{
                                 if(tablaImgVehiculos){
                                     const [ rows ] = await pool.query(`INSERT INTO Tbl_FotoVehiculo SET ?`, tablaImgVehiculos[0]);
                                     if(rows.affectedRows == 0){
-                                        return res.status(505).json("No se pudo registrar las fotos del vehiculo");
+                                        return res.status(505).send("No se pudo registrar las fotos del vehiculo");
                                     }else if(rows.affectedRows ==1){
                                         const tablaPropietarioVehiculo = [{
                                             "nombrePRO": req.body.nombresProp,
@@ -240,7 +240,7 @@ export const createSoli =  async (req, res)=>{
                                         if(tablaPropietarioVehiculo){
                                             const [ rows ] = await pool.query(`INSERT INTO Tbl_DatosPropietario SET ?`, tablaPropietarioVehiculo[0]);
                                             if(rows.affectedRows == 0){
-                                                return res.status(505).json("No se pudo registrar los datos del propietario");
+                                                return res.status(505).send("No se pudo registrar los datos del propietario");
                                             }else if(rows.affectedRows ==1){
                                                 const tablaPoseedorVehiculo = [{
                                                     "nombreTE": req.body.nombresTE,
@@ -254,7 +254,7 @@ export const createSoli =  async (req, res)=>{
                                                 if(tablaPoseedorVehiculo){
                                                     const [ rows ] = await pool.query(`INSERT INTO Tbl_DatosTenedor SET ?`, tablaPoseedorVehiculo[0]);
                                                     if(rows.affectedRows == 0){
-                                                        return res.status(505).json("No se pudo registrar los datos del tenedor o poseedor");
+                                                        return res.status(505).send("No se pudo registrar los datos del tenedor o poseedor");
                                                     }else if(rows.affectedRows == 1){
                                                         res.status(200).json("Felicidades tu solictud esta en proceso de aprovacion");
                                                     }
@@ -273,7 +273,7 @@ export const createSoli =  async (req, res)=>{
             }
         }
     } catch (error) {
-        return res.status(500).json(error.message)
+        return res.status(500).send(error.message)
     }
 }
 
