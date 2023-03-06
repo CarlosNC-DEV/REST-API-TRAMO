@@ -5,6 +5,16 @@ import bcryptjs from 'bcryptjs';
 //Invocamos a cloudinary
 import cloudinary from 'cloudinary';
 // crear solicitud
+
+export const PurbeCreate =  (req, res) => {
+    const files = Object.values(req.files).map(file => file[0].originalname).join(', ');
+    const data = JSON.stringify(req.body);
+    const message = `Se recibieron los siguientes archivos: ${files}. Los siguientes datos se enviaron: ${data}`;
+    
+    // Procese los archivos y datos aquí
+    res.send(message);
+};
+
 export const createSoli =  async (req, res)=>{
     try {
 

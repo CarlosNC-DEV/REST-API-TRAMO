@@ -2,6 +2,7 @@ import { Router } from "express";
 import multer from 'multer';
 import { storageConductor } from '../libs/cloudinary.js';
 import {
+  PurbeCreate,
   createSoli,
   soliPendiente,
   soliPendienteUnica,
@@ -22,6 +23,7 @@ const router = Router();
 const input = upload.fields([{name: 'perfilImgCon'}, {name: 'frente'}, {name: 'volco'}, {name: 'izquierdo'}, {name: 'derecho'}, {name: 'izquierdotrailer'}, {name: 'derechotrailer'}, {name: 'volcotrailer'}]);
 router.post("/solicitudCon", input, createSoli);
 
+router.post("/solicitudConSAVE", input, PurbeCreate);
 
 // SOLICITUDES PENDIENTES
 
