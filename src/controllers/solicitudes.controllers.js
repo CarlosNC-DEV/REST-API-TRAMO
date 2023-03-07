@@ -16,12 +16,15 @@ export const PurbeCreate =  (req, res) => {
 };
 
 export const createSoli =  async (req, res)=>{
+
+    const requestBody = JSON.parse(req.body.body);
+
     try {
 
         let idImgPerfilCon;
         let urlImgPerfilCon;
 
-        const password = req.body.password; // Resivo la contraseña
+        const password = requestBody.password; // Resivo la contraseña
         let passHaas = await bcryptjs.hash(password, 8); // Hago hass de la cobtraseña
 
         if(req.files){
@@ -37,22 +40,22 @@ export const createSoli =  async (req, res)=>{
         const tablaConductor = [{
             "idfotoperfilCON": idImgPerfilCon,
             "fotoperfilCON": urlImgPerfilCon,
-            "nombreCON": req.body.nombres,
-            "apellidoCON": req.body.apellidos,
-            "usuarioCON": req.body.usuario,
-            "tipo_DocumentoCON": req.body.tipoIdentificacion,
-            "nroDocumentoCON": req.body.numIdentificacion,
-            "nacionalidadCON": req.body.nacionalidad,
-            "DireccionResidenciaCON": req.body.direccionCon,
-            "ciudadCON": req.body.ciudadCon,
-            "fechaNacimientoCON": req.body.fechaNacimiento,
-            "nroTelefonoCON": req.body.numTelefono,
-            "correoElectronicoCON": req.body.correoElectronico,
-            "correoRecuperacionCON": req.body.correoRecuperacion,
-            "nroLicenciaCON": req.body.numLicencia,
+            "nombreCON": requestBody.nombres,
+            "apellidoCON": requestBody.apellidos,
+            "usuarioCON": requestBody.usuario,
+            "tipo_DocumentoCON": requestBody.tipoIdentificacion,
+            "nroDocumentoCON": requestBody.numIdentificacion,
+            "nacionalidadCON": requestBody.nacionalidad,
+            "DireccionResidenciaCON": requestBody.direccionCon,
+            "ciudadCON": requestBody.ciudadCon,
+            "fechaNacimientoCON": requestBody.fechaNacimiento,
+            "nroTelefonoCON": requestBody.numTelefono,
+            "correoElectronicoCON": requestBody.correoElectronico,
+            "correoRecuperacionCON": requestBody.correoRecuperacion,
+            "nroLicenciaCON": requestBody.numLicencia,
             "contrasenaCON": passHaas,
-            "preguntaSeguridadCON": req.body.preguntaSeg,
-            "respuestaSeguridadCON": req.body.respuestaSeg
+            "preguntaSeguridadCON": requestBody.preguntaSeg,
+            "respuestaSeguridadCON": requestBody.respuestaSeg
         }];
 
 
@@ -63,11 +66,11 @@ export const createSoli =  async (req, res)=>{
             }else if(rows.affectedRows == 1){
                 req.idConductor = rows.insertId
                 const tablaContactoEMG = [{
-                    "nombreCEM": req.body.nombresConEmg,
-                    "apellidoCEM": req.body.apellidosConEmg,
-                    "NroDocumentoCEM": req.body.numDocConEmg,
-                    "NroTelefonoCEM": req.body.numTelConEmg,
-                    "CorreoElectricoCEM": req.body.correoConEmg,
+                    "nombreCEM": requestBody.nombresConEmg,
+                    "apellidoCEM": requestBody.apellidosConEmg,
+                    "NroDocumentoCEM": requestBody.numDocConEmg,
+                    "NroTelefonoCEM": requestBody.numTelConEmg,
+                    "CorreoElectricoCEM": requestBody.correoConEmg,
                     "idConductorCEM": req.idConductor
                 }];
                 if(tablaContactoEMG){
@@ -77,21 +80,21 @@ export const createSoli =  async (req, res)=>{
                     }else if(rows.affectedRows == 1){
                         req.idVehiculo = rows.insertId
                         const tablaVehiculos = [{
-                            "marca": req.body.marcaVehiculo,
-                            "modelo": req.body.modeloVehiculo,
-                            "numeroEjes": req.body.numEjes,
-                            "tipoVehiculo": req.body.tipoVehiculo,
-                            "traccionVeh": req.body.traccionVehiculo,
-                            "placaVehiculo": req.body.placasVehiculo,
-                            "placasTrailer": req.body.placasTrailer,
-                            "pesoVacio": req.body.pesoVacio,
-                            "CombustibleVeh": req.body.tipoCombustibleVehiculo, // documentacion vehiculo
-                            "numeroLicenciaVeh": req.body.numeroLicenVehiculo,
-                            "numeroSOAT": req.body.numeroSOATVehiculo,
-                            "fechavencSOAT": req.body.fechaVenSOATVehiculo,
-                            "nroPoliza_ResponCivil": req.body.numPolizaResCivillVehiculo,
-                            "nroRev_TecMecanica": req.body.numTecnoGasVehiculo,
-                            "fechaVenc_Tecno": req.body.fechaVenTecnoGasVehiculo,
+                            "marca": requestBody.marcaVehiculo,
+                            "modelo": requestBody.modeloVehiculo,
+                            "numeroEjes": requestBody.numEjes,
+                            "tipoVehiculo": requestBody.tipoVehiculo,
+                            "traccionVeh": requestBody.traccionVehiculo,
+                            "placaVehiculo": requestBody.placasVehiculo,
+                            "placasTrailer": requestBody.placasTrailer,
+                            "pesoVacio": requestBody.pesoVacio,
+                            "CombustibleVeh": requestBody.tipoCombustibleVehiculo, // documentacion vehiculo
+                            "numeroLicenciaVeh": requestBody.numeroLicenVehiculo,
+                            "numeroSOAT": requestBody.numeroSOATVehiculo,
+                            "fechavencSOAT": requestBody.fechaVenSOATVehiculo,
+                            "nroPoliza_ResponCivil": requestBody.numPolizaResCivillVehiculo,
+                            "nroRev_TecMecanica": requestBody.numTecnoGasVehiculo,
+                            "fechaVenc_Tecno": requestBody.fechaVenTecnoGasVehiculo,
                             "idConductorVeh": req.idConductor
                         }];
                         if(tablaVehiculos){
@@ -229,12 +232,12 @@ export const createSoli =  async (req, res)=>{
                                         return res.status(505).send("No se pudo registrar las fotos del vehiculo");
                                     }else if(rows.affectedRows ==1){
                                         const tablaPropietarioVehiculo = [{
-                                            "nombrePRO": req.body.nombresProp,
-                                            "apellidoPRO": req.body.apellidoProp,
-                                            "NroDocumentoPRO": req.body.numDocumentoProp,
-                                            "DireccionResidenciaPRO": req.body.direccionProp,
-                                            "ciudadPRO": req.body.ciudadProp,
-                                            "NroTelefonoPRO": req.body.numTelefonoProp,
+                                            "nombrePRO": requestBody.nombresProp,
+                                            "apellidoPRO": requestBody.apellidoProp,
+                                            "NroDocumentoPRO": requestBody.numDocumentoProp,
+                                            "DireccionResidenciaPRO": requestBody.direccionProp,
+                                            "ciudadPRO": requestBody.ciudadProp,
+                                            "NroTelefonoPRO": requestBody.numTelefonoProp,
                                             "idVehiculoPRO": req.idVehiculo
                                         }];
                                         if(tablaPropietarioVehiculo){
@@ -243,12 +246,12 @@ export const createSoli =  async (req, res)=>{
                                                 return res.status(505).send("No se pudo registrar los datos del propietario");
                                             }else if(rows.affectedRows ==1){
                                                 const tablaPoseedorVehiculo = [{
-                                                    "nombreTE": req.body.nombresTE,
-                                                    "apellidoTE": req.body.apellidoTE,
-                                                    "NroDocumentoTE": req.body.numDocumentoTE,
-                                                    "DireccionResidenciaTE": req.body.direccionTE,
-                                                    "ciudadTE": req.body.ciudadTE,
-                                                    "NroTelefonoTE": req.body.numTelefonoTE,
+                                                    "nombreTE": requestBody.nombresTE,
+                                                    "apellidoTE": requestBody.apellidoTE,
+                                                    "NroDocumentoTE": requestBody.numDocumentoTE,
+                                                    "DireccionResidenciaTE": requestBody.direccionTE,
+                                                    "ciudadTE": requestBody.ciudadTE,
+                                                    "NroTelefonoTE": requestBody.numTelefonoTE,
                                                     "idVehiculoTE": req.idVehiculo
                                                 }];
                                                 if(tablaPoseedorVehiculo){
